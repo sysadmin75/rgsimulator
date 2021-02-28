@@ -1,10 +1,10 @@
-import urllib2
+import urllib.request
 import base64
 import ast
 
 
 def get_match_result(match_id=2588548):
-    raw_file = urllib2.urlopen('http://robotgame.net/match/%s' % match_id).read()
+    raw_file = urllib.request.urlopen('http://poofmagic.com:8000/match/%s' % match_id).read()
 
     preamble = "<script type=\"text/javascript\" src=\"data:text/javascript;base64,"
 

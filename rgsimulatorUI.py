@@ -1,5 +1,5 @@
-import Tkinter
-import tkFont
+import tkinter as Tkinter
+import tkinter.font as tkFont
 
 
 def mid(l1, l2):
@@ -43,8 +43,8 @@ class SimulatorUI:
         self.labels = {}
         self.actions = {}
 
-        for x in xrange(0, self.map_width):
-            for y in xrange(0, self.map_height):
+        for x in range(0, self.map_width):
+            for y in range(0, self.map_height):
                 coordinates = self.getSquareCoordinates((x, y))
                 x1, y1 = coordinates[0]
                 x2, y2 = coordinates[1]
@@ -135,8 +135,8 @@ class SimulatorUI:
         self.setFill(loc, self.obstacle_fill_color if loc in self.settings['obstacles'] else self.fill_color)
 
     def clearBots(self):
-        for x in xrange(1, self.map_width):
-            for y in xrange(1, self.map_height):
+        for x in range(1, self.map_width):
+            for y in range(1, self.map_height):
                 self.renderEmpty((x, y))
 
     def renderBot(self, loc, hp, player_id):

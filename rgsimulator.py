@@ -1,5 +1,6 @@
-#!/usr/bin/env python2
-import tkSimpleDialog
+#!/usr/bin/env python
+
+import tkinter.simpledialog as tkSimpleDialog
 import argparse
 import ast
 
@@ -82,7 +83,7 @@ class Simulator:
         self.UI.clearActions()
         self.UI.clearBots()
         self.onReloadPlayer(None)
-        for loc, robot in self.state.robots.iteritems():
+        for loc, robot in self.state.robots.items():
             self.state.robots[loc]["player_id"] = 1 - self.state.robots[loc]["player_id"]
             self.UI.renderBot(loc, robot.hp, robot.player_id)
 
@@ -193,7 +194,7 @@ class Simulator:
                 actions, _ = player.get_responses(self.state, player_id)
             else:
                 actions = {}
-            for loc, robot in self.state.robots.iteritems():
+            for loc, robot in self.state.robots.items():
                 if robot.player_id == player_id:
                     action = self.human_actions.get(loc)
                     if action or loc not in actions:
@@ -224,21 +225,21 @@ class Simulator:
             actions = self.getActions()
             self.cached_actions = actions
 
-            for loc, action in actions.iteritems():
+            for loc, action in actions.items():
                 self.UI.renderAction(loc, action)
 
             self.turn_repeat = True
 
             try:
                 rgsim_text = self.player._module.rgsim_text
-                for loc, text in rgsim_text.iteritems():
+                for loc, text in rgsim_text.items():
                     self.UI.renderText(loc, text)
 
             except AttributeError:
-                print "No rgsim_text dict found for player 1, skipping..."
+                print("No rgsim_text dict found for player 1, skipping...")
             except:
-                print ("Error in rgsim_text dict, please ensure keys are " +
-                       "valid locations and values are strings")
+                print("""Error in rgsim_text dict, please ensure keys are
+                       valid locations and values are strings""")
 
     def onSimulate(self, event):
         if self.state.turn < 100:
@@ -251,7 +252,7 @@ class Simulator:
 
             self.state = self.state.apply_actions(actions, spawn=False)
 
-            for loc, robot in self.state.robots.iteritems():
+            for loc, robot in self.state.robots.items():
                 self.UI.renderBot(loc, robot.hp, robot.player_id)
 
             self.cached_actions = None
@@ -262,7 +263,7 @@ class Simulator:
     def onNextAction(self, event):
         if not self.state.is_robot(self.UI.selection):
             return
-        robot = self.state.robots[self.UI.selection]
+        #robot = self.state.robots[self.UI.selection]
         action = self.human_actions.get(self.UI.selection)
         if action is None and self.cached_actions is not None:
             action = self.cached_actions.get(self.UI.selection)
@@ -288,7 +289,7 @@ class Simulator:
         for loc in settings.spawn_coords:
             self._removeRobot(loc)
         for i, loc in enumerate(all_locs):
-            player_id = i // settings.spawn_per_player
+            player_id = i // settings['spawn_per_player']
             self._addRobot(player_id, loc)
 
 if __name__ == "__main__":
